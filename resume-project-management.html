@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Francis Obinna Madubuike – Construction Informatics & Digital Twins</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .sidebar {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 50;
+    }
+    .dropdown-active .dropdown-content {
+      display: block;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal.show {
+      display: flex;
+    }
+    body.menu-open {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-zinc-50 min-h-screen flex flex-col md:flex-row">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside id="sidebar"
+         class="fixed inset-y-0 left-0 z-[60] w-80 bg-white border-r border-zinc-200 h-full overflow-y-auto sidebar shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:shadow-none md:border-r">
+
+    <!-- Desktop profile block -->
+    <div class="p-8 sticky top-0 bg-white border-b z-10 hidden md:block">
+      <div class="flex flex-col items-center text-center">
+        <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike"
+             class="w-40 h-40 rounded-2xl object-cover shadow-2xl mb-6 border-4 border-white">
+        <h1 class="text-3xl font-bold text-blue-900">Francis Obinna Madubuike</h1>
+        <p class="text-black font-medium text-base mt-1 leading-snug">
+          Construction Informatics | Digital Twins | Project Management | Researcher
+        </p>
+      </div>
+    </div>
+
+    <!-- Mobile sidebar content -->
+    <div class="md:hidden">
+      <div class="p-6 bg-blue-50/50 border-b border-zinc-200">
+        <div class="flex flex-col items-center text-center">
+          <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike"
+               class="w-32 h-32 rounded-2xl object-cover shadow-xl mb-4 border-4 border-white">
+          <h1 class="text-2xl font-bold text-blue-900 leading-tight">Francis Obinna Madubuike</h1>
+        </div>
+      </div>
+      <div class="p-6 border-b">
+        <h3 class="uppercase text-xs tracking-wider text-zinc-500 mb-4 font-semibold">Menu</h3>
+        <nav class="flex flex-col gap-4 text-lg font-medium text-zinc-800">
+          <a href="index.html" class="block hover:text-blue-600">Home</a>
+          <div>
+            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');"
+                    class="flex items-center justify-between w-full text-blue-600 font-semibold">
+              Resume <i class="fas fa-chevron-down text-xs transition-transform"></i>
+            </button>
+            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
+              <a href="resume-pm.html" class="block hover:text-blue-600">Project Management</a>
+              <a href="resume-academic.html" class="block hover:text-blue-600">Academic</a>
+            </div>
+          </div>
+          <div>
+            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');"
+                    class="flex items-center justify-between w-full hover:text-blue-600">
+              Services <i class="fas fa-chevron-down text-xs transition-transform"></i>
+            </button>
+            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
+              <a href="services-courses.html" class="block hover:text-blue-600">Course Facilitation</a>
+              <a href="services-notary.html" class="block hover:text-blue-600">Notary Public</a>
+              <a href="services-cleaning.html" class="block hover:text-blue-600">Cleaning Services</a>
+              <a href="services-photography.html" class="block hover:text-blue-600">Photography</a>
+            </div>
+          </div>
+          <a href="contact.html" class="hover:text-blue-600">Contact Me</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Contact -->
+    <div class="p-6 space-y-4 text-sm">
+      <h3 class="uppercase text-xs tracking-wider text-zinc-500 font-semibold">Quick Contact</h3>
+      <div class="space-y-3">
+        <a href="mailto:madubuikefrancis43@gmail.com" class="flex items-center gap-2.5 text-blue-600 hover:underline">
+          <i class="fas fa-envelope text-zinc-500 w-4"></i>
+          madubuikefrancis43@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/obinna-madubuike-ph-d-leed-green-associate-pmp-1b261984" target="_blank"
+           class="flex items-center gap-2.5 text-blue-600 hover:underline">
+          <i class="fab fa-linkedin text-zinc-500 w-4"></i>
+          LinkedIn
+        </a>
+        <a href="tel:+13525192565" class="flex items-center gap-2.5 text-blue-600 hover:underline">
+          <i class="fas fa-phone text-zinc-500 w-4"></i>
+          +1 352 519 2565
+        </a>
+      </div>
+      <div class="relative group pt-1">
+        <button
+          onclick="copyToClipboard('https://finngardner247-cell.github.io/my-personal-website/')"
+          class="flex items-center gap-2 text-zinc-800 hover:text-blue-600 transition w-full text-left"
+        >
+          <i class="fas fa-link text-zinc-500 w-4"></i>
+          <span>Portfolio Link</span>
+          <i class="fas fa-copy text-xs text-zinc-400 group-hover:text-blue-500 transition ml-1"></i>
+        </button>
+        <span class="absolute left-0 bottom-full mb-1.5 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 pointer-events-none z-10 whitespace-nowrap">
+          Copy Link
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Backdrop -->
+  <div id="sidebar-backdrop"
+       class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden opacity-0 pointer-events-none"></div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="flex-1 md:ml-80 flex flex-col min-h-screen">
+
+    <!-- Desktop Nav -->
+    <nav class="bg-white border-b sticky top-0 z-40 shadow-sm hidden md:block">
+      <div class="max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between py-5">
+        <div class="flex items-center gap-10 text-lg font-medium flex-1">
+          <a href="index.html" class="hover:text-blue-600">Home</a>
+          <div class="relative group">
+            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 text-blue-600 font-semibold">
+              Resume <i class="fas fa-chevron-down text-xs ml-1"></i>
+            </button>
+            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-56 mt-2 border text-base text-blue-600 font-semibold">
+              <a href="resume-pm.html" class="block px-6 py-2.5 hover:bg-zinc-50">Project Management</a>
+              <a href="resume-academic.html" class="block px-6 py-2.5 hover:bg-zinc-50">Academic</a>
+            </div>
+          </div>
+          <div class="relative group">
+            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 hover:text-blue-600 transition">
+              Services <i class="fas fa-chevron-down text-xs ml-1"></i>
+            </button>
+            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-72 mt-2 border text-base">
+              <a href="services-courses.html" class="block px-6 py-2.5 hover:bg-zinc-50">Course Facilitation</a>
+              <a href="services-notary.html" class="block px-6 py-2.5 hover:bg-zinc-50">Notary Public</a>
+              <a href="services-cleaning.html" class="block px-6 py-2.5 hover:bg-zinc-50">Cleaning Services</a>
+              <a href="services-photography.html" class="block px-6 py-2.5 hover:bg-zinc-50">Photography</a>
+            </div>
+          </div>
+          <a href="contact.html" class="hover:text-blue-600 transition">Contact Me</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Top Bar -->
+    <div class="md:hidden bg-white border-b sticky top-0 z-40 shadow-sm px-6 py-4 flex items-center justify-between">
+      <button id="menu-toggle-btn" class="inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-blue-600 hover:bg-zinc-100">
+        <svg id="hamburger-icon" class="h-7 w-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path id="h-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="bg-gradient-to-br from-green-50 to-emerald-50 py-16 md:py-20 border-b border-zinc-200">
+      <div class="max-w-5xl mx-auto px-6 md:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Project Management Resume</h1>
+        <p class="text-lg md:text-xl text-zinc-700 max-w-3xl mx-auto mb-10">
+          Focused overview of project leadership, delivery, risk management, stakeholder coordination,
+          and construction/research project execution experience.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="assets/resume.pdf" target="_blank"
+             class="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-green-700 transition shadow-md">
+            <i class="fas fa-file-pdf"></i> Download Full PDF
+          </a>
+          <a href="assets/resume.docx" target="_blank"
+             class="inline-flex items-center gap-2 bg-zinc-800 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-zinc-900 transition shadow-md">
+            <i class="fas fa-file-word"></i> Download DOCX
+          </a>
+          <a href="resume-academic.html"
+             class="inline-flex items-center gap-2 bg-purple-600 text-white px-7 py-4 rounded-xl font-medium text-base hover:bg-purple-700 transition">
+            View Academic Focus →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE TIMELINE ===== -->
+    <section class="max-w-5xl mx-auto px-6 md:px-8 py-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-14">Professional Experience – Project Management</h2>
+
+      <div class="space-y-16 relative before:absolute before:left-8 md:before:left-1/2 before:top-0 before:bottom-0 before:w-px before:bg-zinc-200 md:before:-translate-x-px">
+
+        <!-- Assistant Project Manager -->
+        <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
+          <div class="md:w-1/2 md:text-right md:pr-12 pl-16 md:pl-0">
+            <div class="text-xl md:text-2xl font-bold text-zinc-800">July 2022 – Present</div>
+            <div class="text-lg font-semibold text-green-700 mt-1">Assistant Project Manager – Research Analyst</div>
+            <div class="text-zinc-600 mt-0.5">Stellar Group of Cos, Jacksonville, FL</div>
+          </div>
+          <div class="absolute left-6 md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 w-5 h-5 rounded-full bg-green-600 border-4 border-white z-10 md:-translate-x-1/2"></div>
+          <div class="md:w-1/2 md:pl-12 pl-16">
+            <ul class="list-disc list-inside text-zinc-700 space-y-2 text-sm">
+              <li>Assisted in managing multiple construction projects, ensuring delivery within budget, schedule, and quality standards</li>
+              <li>Participated in project bidding process, subcontractor reviews, and buyouts across various project scopes</li>
+              <li>Coordinated with subcontractors, vendors, and site teams for material procurement, scheduling, and quality monitoring</li>
+              <li>Supported budget development and cost control by working with engineers and subcontractors during design phase</li>
+              <li>Conducted regular site surveys to verify compliance with safety, quality, and production requirements</li>
+              <li>Reviewed construction documents and specifications for compliance and reported findings to senior management</li>
+              <li>Researched and recommended products/systems that improved project outcomes and efficiency</li>
+              <li>Worked closely with Project Managers and Superintendents to ensure on-time completion of mechanical and other project aspects</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Graduate Research Assistant -->
+        <div class="relative flex flex-col md:flex-row-reverse items-start md:items-center gap-6 md:gap-12">
+          <div class="md:w-1/2 md:text-left md:pl-12 pl-16">
+            <div class="text-xl md:text-2xl font-bold text-zinc-800">August 2018 – August 2022</div>
+            <div class="text-lg font-semibold text-green-700 mt-1">Graduate Research Assistant</div>
+            <div class="text-zinc-600 mt-0.5">University of Florida, Gainesville, FL</div>
+          </div>
+          <div class="absolute left-6 md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 w-5 h-5 rounded-full bg-green-600 border-4 border-white z-10 md:-translate-x-1/2"></div>
+          <div class="md:w-1/2 md:pr-12 pl-16">
+            <ul class="list-disc list-inside text-zinc-700 space-y-2 text-sm">
+              <li>Led coordination of research activities focused on Intelligent Buildings, Cyber-Physical Systems, and Digital Twin Technologies</li>
+              <li>Collected, analyzed, and organized over 500 research materials while contributing to 8 scientific papers</li>
+              <li>Partnered with principal investigators on Digital Twin applications, including development of a DT-Based Healthcare Facilities Management System</li>
+              <li>Directed and coordinated over 20 students in executing research tasks and meeting project deliverables</li>
+              <li>Developed comprehensive training manuals and coached team members on project management best practices</li>
+              <li>Managed documentation and regulatory filings to ensure compliance in research projects</li>
+              <li>Conducted statistical, qualitative, and quantitative analyses using advanced data analytics tools</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== COMPETENCIES ===== -->
+      <div class="mt-20">
+        <h3 class="text-2xl md:text-3xl font-bold text-center mb-10">Key Project Management Competencies</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
+            <h4 class="font-semibold text-lg mb-3">Methodologies</h4>
+            <p class="text-zinc-700 text-sm">Agile, Scrum, Waterfall, PRINCE2 principles, Lean Construction</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
+            <h4 class="font-semibold text-lg mb-3">Tools & Software</h4>
+            <p class="text-zinc-700 text-sm">MS Project, Primavera, Jira, Trello, AutoCAD, BIM 360, MS Office Suite</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
+            <h4 class="font-semibold text-lg mb-3">Core Skills</h4>
+            <p class="text-zinc-700 text-sm">Risk Management, Stakeholder Engagement, Budget Control, Team Leadership, Change Management</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-zinc-900 text-white/80 py-10 text-center text-sm border-t border-zinc-800 mt-auto">
+      © March 2026 Francis Obinna Madubuike
+    </footer>
+
+  </main>
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {}).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Could not copy link – please copy manually');
+      });
+    }
+
+    function showModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) { modal.classList.add("show"); document.body.classList.add("menu-open"); }
+    }
+
+    function hideModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) { modal.classList.remove("show"); document.body.classList.remove("menu-open"); }
+    }
+
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal") && e.target.classList.contains("show")) {
+        hideModal(e.target.id);
+      }
+    });
+
+    function toggleDropdown(btn) {
+      const group = btn.parentElement;
+      group.classList.toggle("dropdown-active");
+      document.querySelectorAll(".group").forEach((el) => {
+        if (el !== group) el.classList.remove("dropdown-active");
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".group")) {
+        document.querySelectorAll(".group").forEach((el) => el.classList.remove("dropdown-active"));
+      }
+    });
+
+    const toggleBtn = document.getElementById("menu-toggle-btn");
+    const sidebar = document.getElementById("sidebar");
+    const backdrop = document.getElementById("sidebar-backdrop");
+    const hPath = document.getElementById("h-path");
+
+    function toggleSidebar() {
+      const isOpen = sidebar.classList.contains("translate-x-0");
+      if (isOpen) {
+        sidebar.classList.replace("translate-x-0", "-translate-x-full");
+        backdrop.classList.replace("opacity-100", "opacity-0");
+        backdrop.classList.add("pointer-events-none");
+        hPath.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+        document.body.classList.remove("menu-open");
+      } else {
+        sidebar.classList.replace("-translate-x-full", "translate-x-0");
+        backdrop.classList.replace("opacity-0", "opacity-100");
+        backdrop.classList.remove("pointer-events-none");
+        hPath.setAttribute("d", "M6 18L18 6M6 6l12 12");
+        document.body.classList.add("menu-open");
+      }
+    }
+
+    if (toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
+    if (backdrop) backdrop.addEventListener("click", toggleSidebar);
+  </script>
+
+</body>
+</html>
