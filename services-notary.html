@@ -300,6 +300,19 @@
     }
     if (toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
     if (backdrop) backdrop.addEventListener("click", toggleSidebar);
+        function openCertModal() {
+      const modal = document.getElementById('certModal');
+      const img = document.getElementById('fullCertImage');
+      img.src = 'assets/certificate.jfif';
+      modal.classList.remove('hidden');
+      let count = 3;
+      document.getElementById('countdown').textContent = count;
+      const timer = setInterval(() => {
+        count--;
+        document.getElementById('countdown').textContent = count;
+        if (count <= 0) { clearInterval(timer); modal.classList.add('hidden'); }
+      }, 1000);
+    }
   </script>
 </body>
 </html>
