@@ -237,7 +237,7 @@
     <!-- CERT MODAL -->
     <div id="certModal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
       <div class="relative max-w-4xl max-h-[90vh] mx-4">
-        <img id="fullCertImage" src="" alt="Certificate" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain bg-white p-4">
+        <img id="fullCertImage" src="assets/digital twins.jpeg" alt="Certificate" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain bg-white p-4">
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm bg-black/60 px-5 py-2 rounded-full">
           Closes in <span id="countdown">3</span> seconds
         </div>
@@ -260,7 +260,7 @@
     function openCertModal() {
       const modal = document.getElementById('certModal');
       const img = document.getElementById('fullCertImage');
-      img.src = 'assets/certificate.jfif';
+      img.src = 'assets/digital twins.jpeg';
       modal.classList.remove('hidden');
       let count = 3;
       document.getElementById('countdown').textContent = count;
