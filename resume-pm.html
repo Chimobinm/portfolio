@@ -3,226 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Francis Obinna Madubuike – Construction Informatics & Digital Twins</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Francis Obinna Madubuike – Project Management Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f1f3d; --blue: #1d4ed8; --blue-light: #3b82f6; --indigo: #4338ca;
+      --green: #16a34a; --green-light: #22c55e;
+      --sky: #e0eaff; --cream: #fafaf8; --zinc-100: #f4f4f5; --zinc-200: #e4e4e7;
+      --zinc-400: #a1a1aa; --zinc-600: #52525b; --zinc-800: #27272a; --zinc-900: #18181b;
+      --white: #ffffff; --sidebar-w: 300px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --transition: 0.28s cubic-bezier(.4,0,.2,1);
     }
-    .sidebar {
-      scrollbar-width: thin;
-      scrollbar-color: #cbd5e1 #f1f5f9;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      z-index: 50;
-    }
-    .dropdown-active .dropdown-content {
-      display: block;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-    .modal.show {
-      display: flex;
-    }
-    body.menu-open {
-      overflow: hidden;
-    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--zinc-800); display: flex; min-height: 100vh; overflow-x: hidden; }
+    .sidebar { position: fixed; inset-y: 0; left: 0; width: var(--sidebar-w); background: var(--navy); color: var(--white); display: flex; flex-direction: column; z-index: 60; transform: translateX(0); transition: transform var(--transition); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #334155 transparent; }
+    .sidebar-profile { padding: 36px 24px 28px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
+    .sidebar-profile img { width: 120px; height: 120px; border-radius: 16px; object-fit: cover; border: 3px solid rgba(255,255,255,0.15); margin-bottom: 16px; display: block; margin-left: auto; margin-right: auto; }
+    .sidebar-profile h1 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; line-height: 1.3; color: #fff; margin-bottom: 6px; }
+    .sidebar-profile p { font-size: 0.72rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    .sidebar-nav { padding: 24px 20px 16px; flex: 1; }
+    .sidebar-nav-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 600; margin-bottom: 12px; }
+    .sidebar-nav a, .sidebar-nav .nav-group-btn { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: background var(--transition), color var(--transition); cursor: pointer; background: none; border: none; width: 100%; text-align: left; }
+    .sidebar-nav a:hover, .sidebar-nav .nav-group-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .sidebar-nav a.active { background: rgba(99,102,241,0.25); color: #a5b4fc; }
+    .nav-group { margin-bottom: 4px; }
+    .nav-group-btn i.chevron { transition: transform var(--transition); font-size: 0.65rem; }
+    .nav-group.open .nav-group-btn i.chevron { transform: rotate(180deg); }
+    .nav-group-children { display: none; padding-left: 12px; margin-top: 4px; }
+    .nav-group.open .nav-group-children { display: block; }
+    .nav-group-children a { font-size: 0.82rem; padding: 8px 12px; color: rgba(255,255,255,0.6); }
+    .nav-group-children a.active { color: #a5b4fc; background: rgba(99,102,241,0.2); }
+    .sidebar-contact { padding: 20px; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
+    .sidebar-contact-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 600; margin-bottom: 12px; }
+    .sidebar-contact a { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; color: rgba(255,255,255,0.6); text-decoration: none; padding: 6px 0; transition: color var(--transition); }
+    .sidebar-contact a:hover { color: #93c5fd; }
+    .sidebar-contact a i { width: 14px; text-align: center; color: rgba(255,255,255,0.35); }
+    .backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); z-index: 55; }
+    .backdrop.show { display: block; }
+    .main { flex: 1; margin-left: var(--sidebar-w); display: flex; flex-direction: column; min-height: 100vh; }
+    .desktop-nav { background: var(--white); border-bottom: 1px solid var(--zinc-200); position: sticky; top: 0; z-index: 40; padding: 0 40px; }
+    .desktop-nav-inner { display: flex; align-items: center; gap: 36px; height: 62px; }
+    .desktop-nav a, .desktop-nav .dropdown-btn { font-size: 0.9rem; font-weight: 500; color: var(--zinc-600); text-decoration: none; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 0; transition: color var(--transition); }
+    .desktop-nav a:hover, .desktop-nav .dropdown-btn:hover, .desktop-nav a.active, .desktop-nav .dropdown-btn.active { color: var(--blue); }
+    .desktop-nav .dropdown-btn i { font-size: 0.6rem; transition: transform var(--transition); }
+    .desktop-nav .dd-wrap { position: relative; }
+    .desktop-nav .dd-wrap.open .dropdown-btn i { transform: rotate(180deg); }
+    .dd-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: var(--white); border: 1px solid var(--zinc-200); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); min-width: 220px; padding: 8px; z-index: 100; }
+    .dd-wrap.open .dd-menu { display: block; }
+    .dd-menu a { display: block; padding: 9px 14px; border-radius: 8px; font-size: 0.85rem; color: var(--zinc-600); text-decoration: none; transition: background var(--transition), color var(--transition); }
+    .dd-menu a:hover { background: var(--sky); color: var(--blue); }
+    .dd-menu a.active { color: var(--blue); font-weight: 600; background: var(--sky); }
+    .mobile-topbar { display: none; background: var(--white); border-bottom: 1px solid var(--zinc-200); position: sticky; top: 0; z-index: 40; padding: 14px 20px; align-items: center; justify-content: space-between; gap: 12px; }
+    .mobile-topbar-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .hamburger-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; color: var(--zinc-800); transition: background var(--transition); display: flex; align-items: center; justify-content: center; }
+    .hamburger-btn:hover { background: var(--zinc-100); }
+    .hamburger-btn svg { width: 22px; height: 22px; }
+
+    /* PAGE HERO */
+    .page-hero { background: linear-gradient(135deg, #0a2e1a 0%, #134d2e 50%, #1a6b3f 100%); padding: 72px 48px 64px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .page-hero-inner { max-width: 800px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.15; }
+    .page-hero p { font-size: 0.95rem; color: rgba(255,255,255,0.72); line-height: 1.75; max-width: 600px; margin: 0 auto 36px; }
+    .page-hero-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .hero-dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 12px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition); }
+    .hero-dl-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-green { background: #fff; color: var(--green); box-shadow: 0 4px 16px rgba(0,0,0,0.18); }
+    .btn-dark { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.25); }
+    .btn-purple { background: rgba(124,58,237,0.9); color: #fff; }
+
+    /* CONTENT */
+    .section-wrap { max-width: 900px; margin: 0 auto; padding: 64px 40px; width: 100%; }
+    .section-h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 48px; }
+
+    /* TIMELINE */
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: var(--zinc-200); }
+    .timeline-item { position: relative; padding-left: 56px; margin-bottom: 48px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: 10px; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--green); border: 4px solid var(--cream); z-index: 1; box-shadow: 0 0 0 2px var(--green); }
+    .timeline-period { font-size: 0.78rem; font-weight: 600; color: var(--zinc-400); margin-bottom: 4px; letter-spacing: 0.03em; }
+    .timeline-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+    .timeline-org { font-size: 0.85rem; color: var(--zinc-600); margin-bottom: 14px; }
+    .timeline-card { background: var(--white); border: 1px solid var(--zinc-200); border-radius: 14px; padding: 20px 24px; }
+    .timeline-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .timeline-card ul li { font-size: 0.84rem; color: var(--zinc-600); line-height: 1.55; padding-left: 18px; position: relative; }
+    .timeline-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-size: 0.75rem; top: 1px; }
+
+    /* COMPETENCIES */
+    .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .comp-card { background: var(--white); border: 1px solid var(--zinc-200); border-radius: 14px; padding: 20px; transition: box-shadow var(--transition), transform var(--transition); }
+    .comp-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); transform: translateY(-2px); }
+    .comp-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .comp-card p { font-size: 0.78rem; color: var(--zinc-600); line-height: 1.6; }
+
+    footer { background: var(--zinc-900); color: rgba(255,255,255,0.5); text-align: center; padding: 28px 20px; font-size: 0.8rem; margin-top: auto; }
+
+    @media (max-width: 768px) { body { display: block; } .main { margin-left: 0; } .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); } .sidebar.open { transform: translateX(0); } .desktop-nav { display: none; } .mobile-topbar { display: flex; } .page-hero { padding: 48px 20px 40px; } .section-wrap { padding: 40px 20px; } .comp-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .page-hero-btns { flex-direction: column; align-items: center; } }
   </style>
 </head>
-<body class="bg-zinc-50 min-h-screen flex flex-col md:flex-row">
-
-  <!-- ===== SIDEBAR ===== -->
-  <aside id="sidebar"
-         class="fixed inset-y-0 left-0 z-[60] w-80 bg-white border-r border-zinc-200 h-full overflow-y-auto sidebar shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:shadow-none md:border-r">
-
-    <!-- Desktop profile block -->
-    <div class="p-8 sticky top-0 bg-white border-b z-10 hidden md:block">
-      <div class="flex flex-col items-center text-center">
-        <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike"
-             class="w-40 h-40 rounded-2xl object-cover shadow-2xl mb-6 border-4 border-white">
-        <h1 class="text-3xl font-bold text-blue-900">Francis Obinna Madubuike</h1>
-        <p class="text-black font-medium text-base mt-1 leading-snug">
-          Construction Informatics | Digital Twins | Project Management | Researcher
-        </p>
-      </div>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-profile">
+      <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike" onerror="this.src='https://ui-avatars.com/api/?name=FM&background=1d4ed8&color=fff&size=120'">
+      <h1>Francis Obinna Madubuike</h1>
+      <p>Construction Informatics · Digital Twins · Project Management · Researcher</p>
     </div>
-
-    <!-- Mobile sidebar content -->
-    <div class="md:hidden">
-      <div class="p-6 bg-blue-50/50 border-b border-zinc-200">
-        <div class="flex flex-col items-center text-center">
-          <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike"
-               class="w-32 h-32 rounded-2xl object-cover shadow-xl mb-4 border-4 border-white">
-          <h1 class="text-2xl font-bold text-blue-900 leading-tight">Francis Obinna Madubuike</h1>
-        </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-nav-label">Navigation</div>
+      <a href="index.html"><i class="fas fa-house fa-fw" style="margin-right:8px;opacity:.5;"></i>Home</a>
+      <div class="nav-group open" id="ng-resume">
+        <button class="nav-group-btn" onclick="toggleNavGroup('ng-resume')"><span><i class="fas fa-file-lines fa-fw" style="margin-right:8px;opacity:.5;"></i>Resume</span><i class="fas fa-chevron-down chevron"></i></button>
+        <div class="nav-group-children"><a href="resume-pm.html" class="active">Project Management</a><a href="resume-academic.html">Academic</a></div>
       </div>
-      <div class="p-6 border-b">
-        <h3 class="uppercase text-xs tracking-wider text-zinc-500 mb-4 font-semibold">Menu</h3>
-        <nav class="flex flex-col gap-4 text-lg font-medium text-zinc-800">
-          <a href="index.html" class="block hover:text-blue-600">Home</a>
-          <div>
-            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');"
-                    class="flex items-center justify-between w-full text-blue-600 font-semibold">
-              Resume <i class="fas fa-chevron-down text-xs transition-transform"></i>
-            </button>
-            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
-              <a href="resume-pm.html" class="block hover:text-blue-600">Project Management</a>
-              <a href="resume-academic.html" class="block hover:text-blue-600">Academic</a>
-            </div>
-          </div>
-          <div>
-            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');"
-                    class="flex items-center justify-between w-full hover:text-blue-600">
-              Services <i class="fas fa-chevron-down text-xs transition-transform"></i>
-            </button>
-            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
-              <a href="services-courses.html" class="block hover:text-blue-600">Course Facilitation</a>
-              <a href="services-notary.html" class="block hover:text-blue-600">Notary Public</a>
-              <a href="services-cleaning.html" class="block hover:text-blue-600">Cleaning Services</a>
-              <a href="services-photography.html" class="block hover:text-blue-600">Photography</a>
-            </div>
-          </div>
-          <a href="contact.html" class="hover:text-blue-600">Contact Me</a>
-        </nav>
+      <div class="nav-group" id="ng-services">
+        <button class="nav-group-btn" onclick="toggleNavGroup('ng-services')"><span><i class="fas fa-briefcase fa-fw" style="margin-right:8px;opacity:.5;"></i>Services</span><i class="fas fa-chevron-down chevron"></i></button>
+        <div class="nav-group-children"><a href="services-courses.html">Course Facilitation</a><a href="services-notary.html">Notary Public</a><a href="services-cleaning.html">Cleaning Services</a><a href="services-photography.html">Photography</a></div>
       </div>
+      <a href="contact.html"><i class="fas fa-envelope fa-fw" style="margin-right:8px;opacity:.5;"></i>Contact Me</a>
     </div>
-
-    <!-- Quick Contact -->
-    <div class="p-6 space-y-4 text-sm">
-      <h3 class="uppercase text-xs tracking-wider text-zinc-500 font-semibold">Quick Contact</h3>
-      <div class="space-y-3">
-        <a href="mailto:madubuikefrancis43@gmail.com" class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fas fa-envelope text-zinc-500 w-4"></i>
-          madubuikefrancis43@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/obinna-madubuike-ph-d-leed-green-associate-pmp-1b261984" target="_blank"
-           class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fab fa-linkedin text-zinc-500 w-4"></i>
-          LinkedIn
-        </a>
-        <a href="tel:+13525192565" class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fas fa-phone text-zinc-500 w-4"></i>
-          +1 352 519 2565
-        </a>
-      </div>
-      <div class="relative group pt-1">
-        <button
-          onclick="copyToClipboard('https://finngardner247-cell.github.io/my-personal-website/')"
-          class="flex items-center gap-2 text-zinc-800 hover:text-blue-600 transition w-full text-left"
-        >
-          <i class="fas fa-link text-zinc-500 w-4"></i>
-          <span>Portfolio Link</span>
-          <i class="fas fa-copy text-xs text-zinc-400 group-hover:text-blue-500 transition ml-1"></i>
-        </button>
-        <span class="absolute left-0 bottom-full mb-1.5 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 pointer-events-none z-10 whitespace-nowrap">
-          Copy Link
-        </span>
-      </div>
+    <div class="sidebar-contact">
+      <div class="sidebar-contact-label">Quick Contact</div>
+      <a href="mailto:madubuikefrancis43@gmail.com"><i class="fas fa-envelope"></i> madubuikefrancis43@gmail.com</a>
+      <a href="https://www.linkedin.com/in/obinna-madubuike-ph-d-leed-green-associate-pmp-1b261984" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn Profile</a>
+      <a href="tel:+13525192565"><i class="fas fa-phone"></i> +1 352 519 2565</a>
+      <a href="#" onclick="copyLink(event)"><i class="fas fa-link"></i> Copy Portfolio Link</a>
     </div>
   </aside>
+  <div class="backdrop" id="backdrop" onclick="closeSidebar()"></div>
 
-  <!-- Backdrop -->
-  <div id="sidebar-backdrop"
-       class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden opacity-0 pointer-events-none"></div>
-
-  <!-- ===== MAIN CONTENT ===== -->
-  <main class="flex-1 md:ml-80 flex flex-col min-h-screen">
-
-    <!-- Desktop Nav -->
-    <nav class="bg-white border-b sticky top-0 z-40 shadow-sm hidden md:block">
-      <div class="max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between py-5">
-        <div class="flex items-center gap-10 text-lg font-medium flex-1">
-          <a href="index.html" class="hover:text-blue-600">Home</a>
-          <div class="relative group">
-            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 text-blue-600 font-semibold">
-              Resume <i class="fas fa-chevron-down text-xs ml-1"></i>
-            </button>
-            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-56 mt-2 border text-base text-blue-600 font-semibold">
-              <a href="resume-pm.html" class="block px-6 py-2.5 hover:bg-zinc-50">Project Management</a>
-              <a href="resume-academic.html" class="block px-6 py-2.5 hover:bg-zinc-50">Academic</a>
-            </div>
-          </div>
-          <div class="relative group">
-            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 hover:text-blue-600 transition">
-              Services <i class="fas fa-chevron-down text-xs ml-1"></i>
-            </button>
-            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-72 mt-2 border text-base">
-              <a href="services-courses.html" class="block px-6 py-2.5 hover:bg-zinc-50">Course Facilitation</a>
-              <a href="services-notary.html" class="block px-6 py-2.5 hover:bg-zinc-50">Notary Public</a>
-              <a href="services-cleaning.html" class="block px-6 py-2.5 hover:bg-zinc-50">Cleaning Services</a>
-              <a href="services-photography.html" class="block px-6 py-2.5 hover:bg-zinc-50">Photography</a>
-            </div>
-          </div>
-          <a href="contact.html" class="hover:text-blue-600 transition">Contact Me</a>
-        </div>
+  <main class="main">
+    <div class="mobile-topbar">
+      <button class="hamburger-btn" onclick="toggleSidebar()"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="ham-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <span class="mobile-topbar-title">Francis O. Madubuike</span>
+      <a href="contact.html" style="font-size:0.78rem;font-weight:600;color:var(--blue);text-decoration:none;"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <nav class="desktop-nav">
+      <div class="desktop-nav-inner">
+        <a href="index.html">Home</a>
+        <div class="dd-wrap open" id="dd-resume"><button class="dropdown-btn active" onclick="toggleDD('dd-resume')">Resume <i class="fas fa-chevron-down"></i></button><div class="dd-menu"><a href="resume-pm.html" class="active">Project Management</a><a href="resume-academic.html">Academic</a></div></div>
+        <div class="dd-wrap" id="dd-services"><button class="dropdown-btn" onclick="toggleDD('dd-services')">Services <i class="fas fa-chevron-down"></i></button><div class="dd-menu"><a href="services-courses.html">Course Facilitation</a><a href="services-notary.html">Notary Public</a><a href="services-cleaning.html">Cleaning Services</a><a href="services-photography.html">Photography</a></div></div>
+        <a href="contact.html">Contact Me</a>
       </div>
     </nav>
 
-    <!-- Mobile Top Bar -->
-    <div class="md:hidden bg-white border-b sticky top-0 z-40 shadow-sm px-6 py-4 flex items-center justify-between">
-      <button id="menu-toggle-btn" class="inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-blue-600 hover:bg-zinc-100">
-        <svg id="hamburger-icon" class="h-7 w-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-          <path id="h-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- ===== PAGE HEADER ===== -->
-    <section class="bg-gradient-to-br from-green-50 to-emerald-50 py-16 md:py-20 border-b border-zinc-200">
-      <div class="max-w-5xl mx-auto px-6 md:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Project Management Resume</h1>
-        <p class="text-lg md:text-xl text-zinc-700 max-w-3xl mx-auto mb-10">
-          Focused overview of project leadership, delivery, risk management, stakeholder coordination,
-          and construction/research project execution experience.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="assets/resume.pdf" target="_blank"
-             class="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-green-700 transition shadow-md">
-            <i class="fas fa-file-pdf"></i> Download Full PDF
-          </a>
-          <a href="assets/resume.docx" target="_blank"
-             class="inline-flex items-center gap-2 bg-zinc-800 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-zinc-900 transition shadow-md">
-            <i class="fas fa-file-word"></i> Download DOCX
-          </a>
-          <a href="resume-academic.html"
-             class="inline-flex items-center gap-2 bg-purple-600 text-white px-7 py-4 rounded-xl font-medium text-base hover:bg-purple-700 transition">
-            View Academic Focus →
-          </a>
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <h1>Project Management Resume</h1>
+        <p>Focused overview of project leadership, delivery, risk management, stakeholder coordination, and construction/research project execution experience.</p>
+        <div class="page-hero-btns">
+          <a href="assets/resume.pdf" target="_blank" class="hero-dl-btn btn-green"><i class="fas fa-file-pdf"></i> Download Full PDF</a>
+          <a href="assets/resume.docx" target="_blank" class="hero-dl-btn btn-dark"><i class="fas fa-file-word"></i> Download DOCX</a>
+          <a href="resume-academic.html" class="hero-dl-btn btn-purple"><i class="fas fa-graduation-cap"></i> View Academic Focus</a>
         </div>
       </div>
     </section>
 
-    <!-- ===== EXPERIENCE TIMELINE ===== -->
-    <section class="max-w-5xl mx-auto px-6 md:px-8 py-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-14">Professional Experience – Project Management</h2>
-
-      <div class="space-y-16 relative before:absolute before:left-8 md:before:left-1/2 before:top-0 before:bottom-0 before:w-px before:bg-zinc-200 md:before:-translate-x-px">
-
-        <!-- Assistant Project Manager -->
-        <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
-          <div class="md:w-1/2 md:text-right md:pr-12 pl-16 md:pl-0">
-            <div class="text-xl md:text-2xl font-bold text-zinc-800">July 2022 – Present</div>
-            <div class="text-lg font-semibold text-green-700 mt-1">Assistant Project Manager – Research Analyst</div>
-            <div class="text-zinc-600 mt-0.5">Stellar Group of Cos, Jacksonville, FL</div>
-          </div>
-          <div class="absolute left-6 md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 w-5 h-5 rounded-full bg-green-600 border-4 border-white z-10 md:-translate-x-1/2"></div>
-          <div class="md:w-1/2 md:pl-12 pl-16">
-            <ul class="list-disc list-inside text-zinc-700 space-y-2 text-sm">
+    <div class="section-wrap">
+      <h2 class="section-h2">Professional Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">July 2022 – Present</div>
+          <div class="timeline-title">Assistant Project Manager – Research Analyst</div>
+          <div class="timeline-org">Stellar Group of Cos, Jacksonville, FL</div>
+          <div class="timeline-card">
+            <ul>
               <li>Assisted in managing multiple construction projects, ensuring delivery within budget, schedule, and quality standards</li>
               <li>Participated in project bidding process, subcontractor reviews, and buyouts across various project scopes</li>
               <li>Coordinated with subcontractors, vendors, and site teams for material procurement, scheduling, and quality monitoring</li>
@@ -234,20 +187,16 @@
             </ul>
           </div>
         </div>
-
-        <!-- Graduate Research Assistant -->
-        <div class="relative flex flex-col md:flex-row-reverse items-start md:items-center gap-6 md:gap-12">
-          <div class="md:w-1/2 md:text-left md:pl-12 pl-16">
-            <div class="text-xl md:text-2xl font-bold text-zinc-800">August 2018 – August 2022</div>
-            <div class="text-lg font-semibold text-green-700 mt-1">Graduate Research Assistant</div>
-            <div class="text-zinc-600 mt-0.5">University of Florida, Gainesville, FL</div>
-          </div>
-          <div class="absolute left-6 md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 w-5 h-5 rounded-full bg-green-600 border-4 border-white z-10 md:-translate-x-1/2"></div>
-          <div class="md:w-1/2 md:pr-12 pl-16">
-            <ul class="list-disc list-inside text-zinc-700 space-y-2 text-sm">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">August 2018 – August 2022</div>
+          <div class="timeline-title">Graduate Research Assistant</div>
+          <div class="timeline-org">University of Florida, Gainesville, FL</div>
+          <div class="timeline-card">
+            <ul>
               <li>Led coordination of research activities focused on Intelligent Buildings, Cyber-Physical Systems, and Digital Twin Technologies</li>
               <li>Collected, analyzed, and organized over 500 research materials while contributing to 8 scientific papers</li>
-              <li>Partnered with principal investigators on Digital Twin applications, including development of a DT-Based Healthcare Facilities Management System</li>
+              <li>Partnered with principal investigators on Digital Twin applications, including a DT-Based Healthcare Facilities Management System</li>
               <li>Directed and coordinated over 20 students in executing research tasks and meeting project deliverables</li>
               <li>Developed comprehensive training manuals and coached team members on project management best practices</li>
               <li>Managed documentation and regulatory filings to ensure compliance in research projects</li>
@@ -255,98 +204,36 @@
             </ul>
           </div>
         </div>
-
       </div>
 
-      <!-- ===== COMPETENCIES ===== -->
-      <div class="mt-20">
-        <h3 class="text-2xl md:text-3xl font-bold text-center mb-10">Key Project Management Competencies</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
-            <h4 class="font-semibold text-lg mb-3">Methodologies</h4>
-            <p class="text-zinc-700 text-sm">Agile, Scrum, Waterfall, PRINCE2 principles, Lean Construction</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
-            <h4 class="font-semibold text-lg mb-3">Tools & Software</h4>
-            <p class="text-zinc-700 text-sm">MS Project, Primavera, Jira, Trello, AutoCAD, BIM 360, MS Office Suite</p>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-zinc-100 hover:shadow-md transition-shadow">
-            <h4 class="font-semibold text-lg mb-3">Core Skills</h4>
-            <p class="text-zinc-700 text-sm">Risk Management, Stakeholder Engagement, Budget Control, Team Leadership, Change Management</p>
-          </div>
+      <h2 class="section-h2" style="margin-top:64px;">Key Project Management Competencies</h2>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <h4><i class="fas fa-diagram-project" style="color:var(--green);margin-right:8px;"></i>Methodologies</h4>
+          <p>Agile, Scrum, Waterfall, PRINCE2 principles, Lean Construction</p>
+        </div>
+        <div class="comp-card">
+          <h4><i class="fas fa-tools" style="color:var(--green);margin-right:8px;"></i>Tools & Software</h4>
+          <p>MS Project, Primavera, Jira, Trello, AutoCAD, BIM 360, MS Office Suite</p>
+        </div>
+        <div class="comp-card">
+          <h4><i class="fas fa-star" style="color:var(--green);margin-right:8px;"></i>Core Skills</h4>
+          <p>Risk Management, Stakeholder Engagement, Budget Control, Team Leadership, Change Management</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <footer class="bg-zinc-900 text-white/80 py-10 text-center text-sm border-t border-zinc-800 mt-auto">
-      © March 2026 Francis Obinna Madubuike
-    </footer>
-
+    <footer>&copy; March 2026 Francis Obinna Madubuike</footer>
   </main>
 
   <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {}).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Could not copy link – please copy manually');
-      });
-    }
-
-    function showModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) { modal.classList.add("show"); document.body.classList.add("menu-open"); }
-    }
-
-    function hideModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) { modal.classList.remove("show"); document.body.classList.remove("menu-open"); }
-    }
-
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("modal") && e.target.classList.contains("show")) {
-        hideModal(e.target.id);
-      }
-    });
-
-    function toggleDropdown(btn) {
-      const group = btn.parentElement;
-      group.classList.toggle("dropdown-active");
-      document.querySelectorAll(".group").forEach((el) => {
-        if (el !== group) el.classList.remove("dropdown-active");
-      });
-    }
-
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".group")) {
-        document.querySelectorAll(".group").forEach((el) => el.classList.remove("dropdown-active"));
-      }
-    });
-
-    const toggleBtn = document.getElementById("menu-toggle-btn");
-    const sidebar = document.getElementById("sidebar");
-    const backdrop = document.getElementById("sidebar-backdrop");
-    const hPath = document.getElementById("h-path");
-
-    function toggleSidebar() {
-      const isOpen = sidebar.classList.contains("translate-x-0");
-      if (isOpen) {
-        sidebar.classList.replace("translate-x-0", "-translate-x-full");
-        backdrop.classList.replace("opacity-100", "opacity-0");
-        backdrop.classList.add("pointer-events-none");
-        hPath.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
-        document.body.classList.remove("menu-open");
-      } else {
-        sidebar.classList.replace("-translate-x-full", "translate-x-0");
-        backdrop.classList.replace("opacity-0", "opacity-100");
-        backdrop.classList.remove("pointer-events-none");
-        hPath.setAttribute("d", "M6 18L18 6M6 6l12 12");
-        document.body.classList.add("menu-open");
-      }
-    }
-
-    if (toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
-    if (backdrop) backdrop.addEventListener("click", toggleSidebar);
+    let sidebarOpen = false;
+    function toggleSidebar() { sidebarOpen = !sidebarOpen; document.getElementById('sidebar').classList.toggle('open', sidebarOpen); document.getElementById('backdrop').classList.toggle('show', sidebarOpen); document.getElementById('ham-path').setAttribute('d', sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'); }
+    function closeSidebar() { sidebarOpen = false; document.getElementById('sidebar').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); document.getElementById('ham-path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); }
+    function toggleNavGroup(id) { document.getElementById(id).classList.toggle('open'); }
+    function toggleDD(id) { const el = document.getElementById(id); const was = el.classList.contains('open'); document.querySelectorAll('.dd-wrap').forEach(d => d.classList.remove('open')); if (!was) el.classList.add('open'); }
+    document.addEventListener('click', e => { if (!e.target.closest('.dd-wrap')) document.querySelectorAll('.dd-wrap').forEach(d => d.classList.remove('open')); });
+    function copyLink(e) { e.preventDefault(); navigator.clipboard.writeText('https://chimobinm.github.io/portfolio/index.html').then(() => alert('Portfolio link copied!')).catch(() => alert('Could not copy – please copy manually')); }
   </script>
-
 </body>
 </html>
