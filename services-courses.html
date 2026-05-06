@@ -4,449 +4,984 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Francis Obinna Madubuike – Course Facilitation</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    .sidebar { scrollbar-width: thin; scrollbar-color: #cbd5e1 #f1f5f9; }
-    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; z-index: 50; }
-    .dropdown-active .dropdown-content { display: block; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .modal.show { display: flex; }
-    body.menu-open { overflow: hidden; }
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
- 
-  .lectures-section * { box-sizing: border-box; }
- 
-  .lectures-section {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 32px 20px;
-    font-family: 'DM Sans', sans-serif;
-  }
- 
-  .lectures-section h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 6px;
-    color: #111;
-  }
- 
-  .lectures-subtitle {
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.85rem;
-    max-width: 560px;
-    margin: 0 auto 24px;
-    line-height: 1.5;
-  }
- 
-  .lectures-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
-  }
- 
-  .lecture-card {
-    background: #fff;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-  }
- 
-  .lecture-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    border-color: #93c5fd;
-    transform: translateY(-2px);
-  }
- 
-  .lecture-card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 4px;
-  }
- 
-  .lecture-logo-wrap {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
- 
-  .lecture-logo-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
- 
-  .lecture-institution {
-    font-size: 0.72rem;
-    color: #6b7280;
-    font-weight: 500;
-    line-height: 1.3;
-  }
- 
-  .lecture-card h3 {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #1d4ed8;
-    line-height: 1.35;
-  }
- 
-  .lecture-date {
-    font-size: 0.7rem;
-    color: #9ca3af;
-    font-style: italic;
-  }
- 
-  .lecture-badge {
-    display: inline-block;
-    margin-top: 4px;
-    background: #eff6ff;
-    color: #2563eb;
-    border: 1px solid #bfdbfe;
-    border-radius: 6px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 3px 10px;
-    letter-spacing: 0.02em;
-    width: fit-content;
-  }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f1f3d;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --indigo: #4338ca;
+      --sky: #e0eaff;
+      --cream: #fafaf8;
+      --zinc-100: #f4f4f5;
+      --zinc-200: #e4e4e7;
+      --zinc-400: #a1a1aa;
+      --zinc-600: #52525b;
+      --zinc-800: #27272a;
+      --zinc-900: #18181b;
+      --white: #ffffff;
+      --sidebar-w: 300px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --transition: 0.28s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--zinc-800);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      inset-y: 0;
+      left: 0;
+      width: var(--sidebar-w);
+      background: var(--navy);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      z-index: 60;
+      transform: translateX(0);
+      transition: transform var(--transition);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #334155 transparent;
+    }
+
+    .sidebar-profile {
+      padding: 36px 24px 28px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .sidebar-profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.15);
+      margin-bottom: 16px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sidebar-profile h1 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-profile p {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .sidebar-nav {
+      padding: 24px 20px 16px;
+      flex: 1;
+    }
+
+    .sidebar-nav-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .sidebar-nav a,
+    .sidebar-nav .nav-group-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav .nav-group-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .sidebar-nav a.active { background: rgba(99,102,241,0.25); color: #a5b4fc; }
+
+    .nav-group { margin-bottom: 4px; }
+    .nav-group-btn i.chevron { transition: transform var(--transition); font-size: 0.65rem; }
+    .nav-group.open .nav-group-btn i.chevron { transform: rotate(180deg); }
+
+    .nav-group-children {
+      display: none;
+      padding-left: 12px;
+      margin-top: 4px;
+    }
+    .nav-group.open .nav-group-children { display: block; }
+    .nav-group-children a {
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .nav-group-children a.active { color: #a5b4fc; background: rgba(99,102,241,0.2); }
+
+    .sidebar-contact {
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .sidebar-contact-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .sidebar-contact a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 6px 0;
+      transition: color var(--transition);
+    }
+    .sidebar-contact a:hover { color: #93c5fd; }
+    .sidebar-contact a i { width: 14px; text-align: center; color: rgba(255,255,255,0.35); }
+
+    /* ── BACKDROP ─────────────────────────────────── */
+    .backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(3px);
+      z-index: 55;
+    }
+    .backdrop.show { display: block; }
+
+    /* ── MAIN ─────────────────────────────────── */
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── DESKTOP NAV ─────────────────────────────────── */
+    .desktop-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-200);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 0 40px;
+    }
+    .desktop-nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      height: 62px;
+    }
+    .desktop-nav a,
+    .desktop-nav .dropdown-btn {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--zinc-600);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      transition: color var(--transition);
+    }
+    .desktop-nav a:hover,
+    .desktop-nav .dropdown-btn:hover,
+    .desktop-nav a.active,
+    .desktop-nav .dropdown-btn.active { color: var(--blue); }
+    .desktop-nav .dropdown-btn i { font-size: 0.6rem; transition: transform var(--transition); }
+    .desktop-nav .dd-wrap { position: relative; }
+    .desktop-nav .dd-wrap.open .dropdown-btn i { transform: rotate(180deg); }
+
+    .dd-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: var(--white);
+      border: 1px solid var(--zinc-200);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      min-width: 220px;
+      padding: 8px;
+      z-index: 100;
+    }
+    .dd-wrap.open .dd-menu { display: block; }
+    .dd-menu a {
+      display: block;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--zinc-600);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+    }
+    .dd-menu a:hover { background: var(--sky); color: var(--blue); }
+    .dd-menu a.active { color: var(--blue); font-weight: 600; background: var(--sky); }
+
+    /* ── MOBILE TOP BAR ─────────────────────────────────── */
+    .mobile-topbar {
+      display: none;
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-200);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 14px 20px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .mobile-topbar-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .hamburger-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      color: var(--zinc-800);
+      transition: background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hamburger-btn:hover { background: var(--zinc-100); }
+    .hamburger-btn svg { width: 22px; height: 22px; }
+
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0f1f3d 0%, #1e3a6e 50%, #2d4a8a 100%);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-emoji { font-size: 3.5rem; margin-bottom: 20px; display: block; }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.88);
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .hero-tag:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.3); }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--navy);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .hero-cta i { color: var(--indigo); }
+
+    /* ── LECTURES ─────────────────────────────────── */
+    .lectures {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 40px;
+      width: 100%;
+    }
+    .section-heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .section-heading p {
+      font-size: 0.88rem;
+      color: var(--zinc-400);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .lectures-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .lecture-card {
+      background: var(--white);
+      border: 1px solid var(--zinc-200);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .lecture-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--indigo));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .lecture-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+      border-color: #93c5fd;
+      transform: translateY(-3px);
+    }
+    .lecture-card:hover::before { opacity: 1; }
+
+    .lecture-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .lecture-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      border: 1px solid var(--zinc-200);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--zinc-100);
+    }
+    .lecture-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .lecture-institution {
+      font-size: 0.72rem;
+      color: var(--zinc-400);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .lecture-card h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.4;
+    }
+    .lecture-date {
+      font-size: 0.7rem;
+      color: var(--zinc-400);
+      font-style: italic;
+    }
+    .lecture-badge {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 4px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      width: fit-content;
+    }
+
+    /* ── CERTIFICATE ─────────────────────────────────── */
+    .cert-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 40px 64px;
+      width: 100%;
+    }
+    .cert-card {
+      background: var(--white);
+      border: 1px solid var(--zinc-200);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .cert-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .cert-card p {
+      font-size: 0.85rem;
+      color: var(--zinc-400);
+      margin-bottom: 24px;
+    }
+    .cert-thumb-wrap {
+      display: inline-flex;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      border: 2px solid var(--zinc-200);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .cert-thumb-wrap:hover { transform: scale(1.03); box-shadow: 0 8px 36px rgba(0,0,0,0.18); }
+    .cert-thumb-wrap img { width: 200px; height: auto; display: block; object-fit: cover; }
+
+    /* ── CTA STRIP ─────────────────────────────────── */
+    .cta-strip {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+      width: 100%;
+      text-align: center;
+    }
+    .cta-strip h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .cta-strip p {
+      font-size: 0.95rem;
+      color: var(--zinc-600);
+      max-width: 540px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 16px rgba(29,78,216,0.3);
+    }
+    .cta-btn:hover { background: var(--indigo); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,78,216,0.4); }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--zinc-900);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 0.8rem;
+      margin-top: auto;
+    }
+
+    /* ── CERT MODAL ─────────────────────────────────── */
+    .cert-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cert-modal-overlay.show { display: flex; }
+    .cert-modal-img {
+      max-width: 100%;
+      max-height: 88vh;
+      border-radius: 12px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      object-fit: contain;
+      background: white;
+      padding: 8px;
+    }
+    .cert-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+    }
+    .cert-modal-close:hover { background: rgba(255,255,255,0.25); }
+    .cert-modal-countdown {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      color: rgba(255,255,255,0.8);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .lectures-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 280px; }
+      .hero { padding: 56px 28px 48px; }
+      .lectures { padding: 48px 24px; }
+      .cert-section { padding: 0 24px 48px; }
+      .cta-strip { padding: 0 24px 60px; }
+    }
+
+    @media (max-width: 768px) {
+      body { display: block; }
+      .main { margin-left: 0; }
+      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); box-shadow: 2px 0 40px rgba(0,0,0,0.2); }
+      .sidebar.open { transform: translateX(0); }
+      .desktop-nav { display: none; }
+      .mobile-topbar { display: flex; }
+      .hero { padding: 48px 20px 40px; }
+      .hero-emoji { font-size: 2.5rem; }
+      .lectures { padding: 40px 20px; }
+      .lectures-grid { grid-template-columns: 1fr; gap: 14px; }
+      .cert-section { padding: 0 20px 40px; }
+      .cert-card { padding: 28px 20px; }
+      .cta-strip { padding: 0 20px 56px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-tag { font-size: 0.72rem; padding: 6px 12px; }
+      .hero-cta { padding: 12px 24px; font-size: 0.88rem; }
+    }
   </style>
 </head>
-<body class="bg-zinc-50 min-h-screen flex flex-col md:flex-row">
+<body>
 
   <!-- SIDEBAR -->
-  <aside id="sidebar" class="fixed inset-y-0 left-0 z-[60] w-80 bg-white border-r border-zinc-200 h-full overflow-y-auto sidebar shadow-2xl -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:shadow-none">
-
-    <div class="p-8 sticky top-0 bg-white border-b z-10 hidden md:block">
-      <div class="flex flex-col items-center text-center">
-        <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike" class="w-40 h-40 rounded-2xl object-cover shadow-2xl mb-6 border-4 border-white">
-        <h1 class="text-3xl font-bold text-blue-900">Francis Obinna Madubuike</h1>
-        <p class="text-black font-medium text-base mt-1 leading-snug">Construction Informatics | Digital Twins | Project Management | Researcher</p>
-      </div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-profile">
+      <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike"
+           onerror="this.src='https://ui-avatars.com/api/?name=FM&background=1d4ed8&color=fff&size=120'">
+      <h1>Francis Obinna Madubuike</h1>
+      <p>Construction Informatics · Digital Twins · Project Management · Researcher</p>
     </div>
 
-    <div class="md:hidden">
-      <div class="p-6 bg-blue-50/50 border-b border-zinc-200">
-        <div class="flex flex-col items-center text-center">
-          <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike" class="w-32 h-32 rounded-2xl object-cover shadow-xl mb-4 border-4 border-white">
-          <h1 class="text-2xl font-bold text-blue-900 leading-tight">Francis Obinna Madubuike</h1>
+    <div class="sidebar-nav">
+      <div class="sidebar-nav-label">Navigation</div>
+
+      <a href="index.html"><i class="fas fa-house fa-fw" style="margin-right:8px;opacity:.5;"></i>Home</a>
+
+      <div class="nav-group" id="ng-resume">
+        <button class="nav-group-btn" onclick="toggleNavGroup('ng-resume')">
+          <span><i class="fas fa-file-lines fa-fw" style="margin-right:8px;opacity:.5;"></i>Resume</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+        <div class="nav-group-children">
+          <a href="resume-pm.html">Project Management</a>
+          <a href="resume-academic.html">Academic</a>
         </div>
       </div>
-      <div class="p-6 border-b">
-        <h3 class="uppercase text-xs tracking-wider text-zinc-500 mb-4 font-semibold">Menu</h3>
-        <nav class="flex flex-col gap-4 text-lg font-medium text-zinc-800">
-          <a href="index.html" class="hover:text-blue-600">Home</a>
-          <div>
-            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');" class="flex items-center justify-between w-full hover:text-blue-600">
-              Resume <i class="fas fa-chevron-down text-xs transition-transform"></i>
-            </button>
-            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
-              <a href="resume-pm.html" class="block hover:text-blue-600">Project Management</a>
-              <a href="resume-academic.html" class="block hover:text-blue-600">Academic</a>
-            </div>
-          </div>
-          <div>
-            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('i').classList.toggle('rotate-180');" class="flex items-center justify-between w-full text-blue-600 font-semibold">
-              Services <i class="fas fa-chevron-down text-xs transition-transform"></i>
-            </button>
-            <div class="hidden pl-4 mt-2 space-y-3 text-base text-zinc-600">
-              <a href="services-courses.html" class="block hover:text-blue-600">Course Facilitation</a>
-              <a href="services-notary.html" class="block hover:text-blue-600">Notary Public</a>
-              <a href="services-cleaning.html" class="block hover:text-blue-600">Cleaning Services</a>
-              <a href="services-photography.html" class="block hover:text-blue-600">Photography</a>
-            </div>
-          </div>
-          <a href="contact.html" class="hover:text-blue-600">Contact Me</a>
-        </nav>
+
+      <div class="nav-group open" id="ng-services">
+        <button class="nav-group-btn" onclick="toggleNavGroup('ng-services')">
+          <span><i class="fas fa-briefcase fa-fw" style="margin-right:8px;opacity:.5;"></i>Services</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+        <div class="nav-group-children">
+          <a href="services-courses.html" class="active">Course Facilitation</a>
+          <a href="services-notary.html">Notary Public</a>
+          <a href="services-cleaning.html">Cleaning Services</a>
+          <a href="services-photography.html">Photography</a>
+        </div>
       </div>
+
+      <a href="contact.html"><i class="fas fa-envelope fa-fw" style="margin-right:8px;opacity:.5;"></i>Contact Me</a>
     </div>
 
-    <div class="p-6 space-y-4 text-sm">
-      <h3 class="uppercase text-xs tracking-wider text-zinc-500 font-semibold">Quick Contact</h3>
-      <div class="space-y-3">
-        <a href="mailto:madubuikefrancis43@gmail.com" class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fas fa-envelope text-zinc-500 w-4"></i> madubuikefrancis43@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/obinna-madubuike-ph-d-leed-green-associate-pmp-1b261984" target="_blank" class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fab fa-linkedin text-zinc-500 w-4"></i> LinkedIn
-        </a>
-        <a href="tel:+13525192565" class="flex items-center gap-2.5 text-blue-600 hover:underline">
-          <i class="fas fa-phone text-zinc-500 w-4"></i> +1 352 519 2565
-        </a>
-      </div>
-      <div class="relative group pt-1">
-        <button onclick="copyToClipboard('https://finngardner247-cell.github.io/my-personal-website/')" class="flex items-center gap-2 text-zinc-800 hover:text-blue-600 transition w-full text-left">
-          <i class="fas fa-link text-zinc-500 w-4"></i>
-          <span>Portfolio Link</span>
-          <i class="fas fa-copy text-xs text-zinc-400 group-hover:text-blue-500 transition ml-1"></i>
-        </button>
-        <span class="absolute left-0 bottom-full mb-1.5 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 pointer-events-none z-10 whitespace-nowrap">Copy Link</span>
-      </div>
+    <div class="sidebar-contact">
+      <div class="sidebar-contact-label">Quick Contact</div>
+      <a href="mailto:madubuikefrancis43@gmail.com">
+        <i class="fas fa-envelope"></i> madubuikefrancis43@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/obinna-madubuike-ph-d-leed-green-associate-pmp-1b261984" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i> LinkedIn Profile
+      </a>
+      <a href="tel:+13525192565">
+        <i class="fas fa-phone"></i> +1 352 519 2565
+      </a>
+      <a href="#" onclick="copyLink(event)">
+        <i class="fas fa-link"></i> Copy Portfolio Link
+      </a>
     </div>
   </aside>
 
-  <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] transition-opacity duration-300 md:hidden opacity-0 pointer-events-none"></div>
+  <!-- BACKDROP -->
+  <div class="backdrop" id="backdrop" onclick="closeSidebar()"></div>
 
-  <main class="flex-1 md:ml-80 flex flex-col min-h-screen">
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+      <button class="hamburger-btn" id="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <svg id="ham-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="ham-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <span class="mobile-topbar-title">Francis O. Madubuike</span>
+      <a href="contact.html" style="font-size:0.78rem;font-weight:600;color:var(--blue);text-decoration:none;">
+        <i class="fas fa-envelope"></i> Contact
+      </a>
+    </div>
 
     <!-- Desktop Nav -->
-    <nav class="bg-white border-b sticky top-0 z-40 shadow-sm hidden md:block">
-      <div class="max-w-7xl mx-auto px-6 md:px-8 flex items-center py-5">
-        <div class="flex items-center gap-10 text-lg font-medium flex-1">
-          <a href="index.html" class="hover:text-blue-600">Home</a>
-          <div class="relative group">
-            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 hover:text-blue-600">
-              Resume <i class="fas fa-chevron-down text-xs ml-1"></i>
-            </button>
-            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-56 mt-2 border text-base text-blue-600 font-semibold">
-              <a href="resume-pm.html" class="block px-6 py-2.5 hover:bg-zinc-50">Project Management</a>
-              <a href="resume-academic.html" class="block px-6 py-2.5 hover:bg-zinc-50">Academic</a>
-            </div>
+    <nav class="desktop-nav">
+      <div class="desktop-nav-inner">
+        <a href="index.html">Home</a>
+
+        <div class="dd-wrap" id="dd-resume">
+          <button class="dropdown-btn" onclick="toggleDD('dd-resume')">
+            Resume <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dd-menu">
+            <a href="resume-pm.html">Project Management</a>
+            <a href="resume-academic.html">Academic</a>
           </div>
-          <div class="relative group">
-            <button onclick="toggleDropdown(this)" class="flex items-center gap-1 text-blue-600 font-semibold">
-              Services <i class="fas fa-chevron-down text-xs ml-1"></i>
-            </button>
-            <div class="dropdown-content bg-white shadow-xl rounded-xl py-3 w-72 mt-2 border text-base">
-              <a href="services-courses.html" class="block px-6 py-2.5 hover:bg-zinc-50">Course Facilitation</a>
-              <a href="services-notary.html" class="block px-6 py-2.5 hover:bg-zinc-50">Notary Public</a>
-              <a href="services-cleaning.html" class="block px-6 py-2.5 hover:bg-zinc-50">Cleaning Services</a>
-              <a href="services-photography.html" class="block px-6 py-2.5 hover:bg-zinc-50">Photography</a>
-            </div>
-          </div>
-          <a href="contact.html" class="hover:text-blue-600">Contact Me</a>
         </div>
+
+        <div class="dd-wrap open" id="dd-services">
+          <button class="dropdown-btn active" onclick="toggleDD('dd-services')">
+            Services <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dd-menu">
+            <a href="services-courses.html" class="active">Course Facilitation</a>
+            <a href="services-notary.html">Notary Public</a>
+            <a href="services-cleaning.html">Cleaning Services</a>
+            <a href="services-photography.html">Photography</a>
+          </div>
+        </div>
+
+        <a href="contact.html">Contact Me</a>
       </div>
     </nav>
 
-    <!-- Mobile Top Bar -->
-    <div class="md:hidden bg-white border-b sticky top-0 z-40 shadow-sm px-6 py-4 flex items-center">
-      <button id="menu-toggle-btn" class="inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-blue-600 hover:bg-zinc-100">
-        <svg id="hamburger-icon" class="h-7 w-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-          <path id="h-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- PAGE HEADER -->
-    <section class="bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-16 md:py-20 border-b border-indigo-100/50">
-      <div class="max-w-5xl mx-auto px-6 md:px-8 text-center">
-        <div class="text-5xl mb-5">📚</div>
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-indigo-800 mb-5">Course Facilitation</h1>
-        <div class="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto mb-10">
-          <span class="px-4 py-2 bg-white/80 text-indigo-800 text-sm font-medium rounded-full shadow-sm border border-indigo-100/70">Project Management</span>
-          <span class="px-4 py-2 bg-white/80 text-blue-800 text-sm font-medium rounded-full shadow-sm border border-blue-100/70">Construction Management</span>
-          <span class="px-4 py-2 bg-white/80 text-purple-800 text-sm font-medium rounded-full shadow-sm border border-purple-100/70">Digital Twin Technology</span>
-          <span class="px-4 py-2 bg-white/80 text-indigo-800 text-sm font-medium rounded-full shadow-sm border border-indigo-100/70">Sustainability Concepts</span>
-          <span class="px-4 py-2 bg-white/80 text-teal-800 text-sm font-medium rounded-full shadow-sm border border-teal-100/70">Facilities Management</span>
-          <span class="px-4 py-2 bg-white/80 text-blue-800 text-sm font-medium rounded-full shadow-sm border border-blue-100/70">Data Management & Business Decisions</span>
-          <span class="px-4 py-2 bg-white/80 text-purple-800 text-sm font-medium rounded-full shadow-sm border border-purple-100/70">Professional Ethics</span>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="hero-emoji">📚</span>
+        <h1>Course Facilitation</h1>
+        <p class="hero-desc">Expert-led training in construction informatics, project management, digital twin technology, and sustainability — delivered in-person, online, or hybrid.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">Project Management</span>
+          <span class="hero-tag">Construction Management</span>
+          <span class="hero-tag">Digital Twin Technology</span>
+          <span class="hero-tag">Sustainability Concepts</span>
+          <span class="hero-tag">Facilities Management</span>
+          <span class="hero-tag">Data Management &amp; Business Decisions</span>
+          <span class="hero-tag">Professional Ethics</span>
+          <span class="hero-tag">LEAN Construction</span>
         </div>
-        <a href="contact.html" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-indigo-700 transition shadow-md">
+        <a href="contact.html" class="hero-cta">
           <i class="fas fa-calendar-check"></i> Book a Session / Request Quote
         </a>
       </div>
     </section>
 
-    <section class="lectures-section">
-  <h2>Previous Lectures & Seminars Delivered</h2>
-  <p class="lectures-subtitle">Guest lectures, seminars, and course facilitations presented at leading academic and professional institutions.</p>
- 
-  <div class="lectures-grid">
- 
-    <!-- 1. University of Lagos -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=unilag.edu.ng&sz=64" alt="University of Lagos"
-            onerror="this.src='https://ui-avatars.com/api/?name=UL&background=003366&color=fff&size=64'" />
-        </div>
-        <span class="lecture-institution">University of Lagos – CHSD/ARUA/GCRF, Nigeria</span>
+    <!-- LECTURES -->
+    <section class="lectures">
+      <div class="section-heading">
+        <h2>Previous Lectures &amp; Seminars Delivered</h2>
+        <p>Guest lectures, seminars, and course facilitations presented at leading academic and professional institutions.</p>
       </div>
-      <h3>Digitalization and the Future of Resilient Transport Infrastructure in Urban Africa</h3>
-      <span class="lecture-date">Sept 13, 2022</span>
-      <span class="lecture-badge">Webinar</span>
-    </div>
- 
-    <!-- 2. Georgia Tech -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=gatech.edu&sz=64" alt="Georgia Tech"
-            onerror="this.src='https://ui-avatars.com/api/?name=GT&background=B3A369&color=fff&size=64'" />
+
+      <div class="lectures-grid">
+
+        <!-- 1 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=unilag.edu.ng&sz=64" alt="University of Lagos"
+                onerror="this.src='https://ui-avatars.com/api/?name=UL&background=003366&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">University of Lagos – CHSD/ARUA/GCRF, Nigeria</span>
+          </div>
+          <h3>Digitalization and the Future of Resilient Transport Infrastructure in Urban Africa</h3>
+          <span class="lecture-date">Sept 13, 2022</span>
+          <span class="lecture-badge">Webinar</span>
         </div>
-        <span class="lecture-institution">Georgia Tech, Georgia, USA</span>
-      </div>
-      <h3>Investigation of a Digital Twin-Based Healthcare Facilities Management</h3>
-      <span class="lecture-date">Jan 30, 2023</span>
-      <span class="lecture-badge">Guest Lecture</span>
-    </div>
- 
-    <!-- 3. Prince Sultan University -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=psu.edu.sa&sz=64" alt="Prince Sultan University"
-            onerror="this.src='https://ui-avatars.com/api/?name=PSU&background=006633&color=fff&size=64'" />
+
+        <!-- 2 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=gatech.edu&sz=64" alt="Georgia Tech"
+                onerror="this.src='https://ui-avatars.com/api/?name=GT&background=B3A369&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">Georgia Tech, Georgia, USA</span>
+          </div>
+          <h3>Investigation of a Digital Twin-Based Healthcare Facilities Management</h3>
+          <span class="lecture-date">Jan 30, 2023</span>
+          <span class="lecture-badge">Guest Lecture</span>
         </div>
-        <span class="lecture-institution">Prince Sultan University, Saudi Arabia</span>
-      </div>
-      <h3>Digital Twins: Impact on Design, Architecture, and Facilities Management</h3>
-      <span class="lecture-date">Oct 22, 2023</span>
-      <span class="lecture-badge">Guest Lecture</span>
-    </div>
- 
-    <!-- 4. University of Lagos Business School -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=unilag.edu.ng&sz=64" alt="University of Lagos Business School"
-            onerror="this.src='https://ui-avatars.com/api/?name=UL&background=003366&color=fff&size=64'" />
+
+        <!-- 3 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=psu.edu.sa&sz=64" alt="Prince Sultan University"
+                onerror="this.src='https://ui-avatars.com/api/?name=PSU&background=006633&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">Prince Sultan University, Saudi Arabia</span>
+          </div>
+          <h3>Digital Twins: Impact on Design, Architecture, and Facilities Management</h3>
+          <span class="lecture-date">Oct 22, 2023</span>
+          <span class="lecture-badge">Guest Lecture</span>
         </div>
-        <span class="lecture-institution">University of Lagos Business School</span>
-      </div>
-      <h3>Strategic Project Management Courses</h3>
-      <span class="lecture-date">Sept 20, 2025 – Ongoing</span>
-      <span class="lecture-badge">Course Facilitator</span>
-    </div>
- 
-    <!-- 5. Alfred State University -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=alfredstate.edu&sz=64" alt="Alfred State University"
-            onerror="this.src='https://ui-avatars.com/api/?name=AS&background=4a2c6e&color=fff&size=64'" />
+
+        <!-- 4 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=unilag.edu.ng&sz=64" alt="University of Lagos Business School"
+                onerror="this.src='https://ui-avatars.com/api/?name=UB&background=003366&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">University of Lagos Business School</span>
+          </div>
+          <h3>Strategic Project Management Courses</h3>
+          <span class="lecture-date">Sept 20, 2025 – Ongoing</span>
+          <span class="lecture-badge">Course Facilitator</span>
         </div>
-        <span class="lecture-institution">Alfred State University</span>
-      </div>
-      <h3>LEAN Construction, Principles, and Applications</h3>
-      <span class="lecture-date">Dec 5, 2025</span>
-      <span class="lecture-badge">Guest Lecturer</span>
-    </div>
- 
-    <!-- 6. Eastern Illinois University -->
-    <div class="lecture-card">
-      <div class="lecture-card-header">
-        <div class="lecture-logo-wrap">
-          <img src="https://www.google.com/s2/favicons?domain=eiu.edu&sz=64" alt="Eastern Illinois University"
-            onerror="this.src='https://ui-avatars.com/api/?name=EIU&background=004B8D&color=fff&size=64'" />
+
+        <!-- 5 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=alfredstate.edu&sz=64" alt="Alfred State University"
+                onerror="this.src='https://ui-avatars.com/api/?name=AS&background=4a2c6e&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">Alfred State University</span>
+          </div>
+          <h3>LEAN Construction, Principles, and Applications</h3>
+          <span class="lecture-date">Dec 5, 2025</span>
+          <span class="lecture-badge">Guest Lecturer</span>
         </div>
-        <span class="lecture-institution">Eastern Illinois University, Illinois, USA</span>
+
+        <!-- 6 -->
+        <div class="lecture-card">
+          <div class="lecture-card-header">
+            <div class="lecture-logo">
+              <img src="https://www.google.com/s2/favicons?domain=eiu.edu&sz=64" alt="Eastern Illinois University"
+                onerror="this.src='https://ui-avatars.com/api/?name=EIU&background=004B8D&color=fff&size=64'">
+            </div>
+            <span class="lecture-institution">Eastern Illinois University, Illinois, USA</span>
+          </div>
+          <h3>LEAN Construction, Principles, and Applications</h3>
+          <span class="lecture-date">April 17, 2026</span>
+          <span class="lecture-badge">Course Support / Guest Lecture</span>
+        </div>
+
       </div>
-      <h3>LEAN Construction, Principles, and Applications</h3>
-      <span class="lecture-date">April 17, 2026</span>
-      <span class="lecture-badge">Course Support / Guest Lecture</span>
-    </div>
- 
-  </div>
-</section>
-    
+    </section>
 
     <!-- CERTIFICATE -->
-    <div class="max-w-3xl mx-auto px-6 md:px-8 mb-16">
-      <div class="bg-white rounded-xl shadow-sm border border-zinc-200 p-6 text-center">
-        <h3 class="text-xl font-semibold text-zinc-800 mb-2">Certified Course Facilitator</h3>
-        <p class="text-sm text-zinc-600 mb-5">Click image to view certification</p>
-        <div class="flex justify-center">
-          <div class="cursor-pointer transition hover:scale-105" onclick="openCertModal()">
-            <img src="assets/digital twins.jpeg" alt="Certified Course Facilitator Certificate"
-                 class="w-48 h-auto rounded-lg shadow border border-zinc-300 object-cover" loading="lazy">
-          </div>
+    <div class="cert-section">
+      <div class="cert-card">
+        <h3>Certified Course Facilitator</h3>
+        <p>Click the image to view the full certification</p>
+        <div class="cert-thumb-wrap" onclick="openCertModal()">
+          <img src="assets/digital twins.jpeg" alt="Course Facilitator Certificate"
+            onerror="this.src='https://ui-avatars.com/api/?name=Cert&background=1d4ed8&color=fff&size=200'">
         </div>
       </div>
     </div>
 
     <!-- CTA -->
-    <div class="max-w-5xl mx-auto px-6 md:px-8 pb-16 text-center">
-      <h3 class="text-2xl md:text-3xl font-bold mb-4">Ready to Upskill Your Team or Yourself?</h3>
-      <p class="text-lg text-zinc-600 mb-8 max-w-2xl mx-auto">
-        Sessions can be delivered in-person, online (Zoom/Teams), or hybrid. Custom durations and group sizes available.
-      </p>
-      <a href="contact.html" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-indigo-700 transition shadow-md">
+    <div class="cta-strip">
+      <h3>Ready to Upskill Your Team or Yourself?</h3>
+      <p>Sessions can be delivered in-person, online (Zoom / Teams), or hybrid. Custom durations and group sizes available.</p>
+      <a href="contact.html" class="cta-btn">
         <i class="fas fa-envelope"></i> Contact Me to Discuss Your Training Needs
       </a>
     </div>
 
-    <!-- CERT MODAL -->
-    <div id="certModal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
-      <div class="relative max-w-4xl max-h-[90vh] mx-4">
-        <img id="fullCertImage" src="assets/digital twins.jpeg" alt="Certificate" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain bg-white p-4">
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm bg-black/60 px-5 py-2 rounded-full">
-          Closes in <span id="countdown">3</span> seconds
-        </div>
-      </div>
-    </div>
-
-    <footer class="bg-zinc-900 text-white/80 py-10 text-center text-sm border-t border-zinc-800 mt-auto">
-      © March 2026 Francis Obinna Madubuike
+    <footer>
+      &copy; March 2026 Francis Obinna Madubuike
     </footer>
   </main>
 
-  <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).catch(() => alert('Could not copy link – please copy manually'));
-    }
-    function showModal(id) { const m = document.getElementById(id); if (m) { m.classList.add("show"); document.body.classList.add("menu-open"); } }
-    function hideModal(id) { const m = document.getElementById(id); if (m) { m.classList.remove("show"); document.body.classList.remove("menu-open"); } }
-    document.addEventListener("click", e => { if (e.target.classList.contains("modal") && e.target.classList.contains("show")) hideModal(e.target.id); });
+  <!-- CERT MODAL -->
+  <div class="cert-modal-overlay" id="certModal" onclick="closeCertModal()">
+    <button class="cert-modal-close" onclick="closeCertModal()" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+    <img class="cert-modal-img" src="assets/digital twins.jpeg" alt="Certificate"
+      onerror="this.src='https://ui-avatars.com/api/?name=Cert&background=1d4ed8&color=fff&size=400'">
+    <div class="cert-modal-countdown">Closes in <span id="countdown">3</span>s</div>
+  </div>
 
+  <script>
+    /* ── Sidebar ── */
+    let sidebarOpen = false;
+    function toggleSidebar() {
+      sidebarOpen = !sidebarOpen;
+      document.getElementById('sidebar').classList.toggle('open', sidebarOpen);
+      document.getElementById('backdrop').classList.toggle('show', sidebarOpen);
+      document.getElementById('ham-path').setAttribute('d',
+        sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
+    }
+    function closeSidebar() {
+      sidebarOpen = false;
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('backdrop').classList.remove('show');
+      document.getElementById('ham-path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+    }
+
+    /* ── Nav Groups (sidebar) ── */
+    function toggleNavGroup(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+
+    /* ── Desktop Dropdowns ── */
+    function toggleDD(id) {
+      const el = document.getElementById(id);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.dd-wrap').forEach(d => d.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.dd-wrap')) {
+        document.querySelectorAll('.dd-wrap').forEach(d => d.classList.remove('open'));
+      }
+    });
+
+    /* ── Cert Modal ── */
+    let countdownTimer;
     function openCertModal() {
       const modal = document.getElementById('certModal');
-      const img = document.getElementById('fullCertImage');
-      img.src = 'assets/digital twins.jpeg';
-      modal.classList.remove('hidden');
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
       let count = 3;
       document.getElementById('countdown').textContent = count;
-      const timer = setInterval(() => {
+      clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
         count--;
         document.getElementById('countdown').textContent = count;
-        if (count <= 0) { clearInterval(timer); modal.classList.add('hidden'); }
+        if (count <= 0) { clearInterval(countdownTimer); closeCertModal(); }
       }, 1000);
     }
-
-    function toggleDropdown(btn) {
-      const g = btn.parentElement;
-      g.classList.toggle("dropdown-active");
-      document.querySelectorAll(".group").forEach(el => { if (el !== g) el.classList.remove("dropdown-active"); });
+    function closeCertModal() {
+      clearInterval(countdownTimer);
+      document.getElementById('certModal').classList.remove('show');
+      document.body.style.overflow = '';
     }
-    document.addEventListener("click", e => { if (!e.target.closest(".group")) document.querySelectorAll(".group").forEach(el => el.classList.remove("dropdown-active")); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCertModal(); });
 
-    const toggleBtn = document.getElementById("menu-toggle-btn");
-    const sidebar = document.getElementById("sidebar");
-    const backdrop = document.getElementById("sidebar-backdrop");
-    const hPath = document.getElementById("h-path");
-    function toggleSidebar() {
-      const isOpen = sidebar.classList.contains("translate-x-0");
-      if (isOpen) {
-        sidebar.classList.replace("translate-x-0", "-translate-x-full");
-        backdrop.classList.replace("opacity-100", "opacity-0");
-        backdrop.classList.add("pointer-events-none");
-        hPath.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
-        document.body.classList.remove("menu-open");
-      } else {
-        sidebar.classList.replace("-translate-x-full", "translate-x-0");
-        backdrop.classList.replace("opacity-0", "opacity-100");
-        backdrop.classList.remove("pointer-events-none");
-        hPath.setAttribute("d", "M6 18L18 6M6 6l12 12");
-        document.body.classList.add("menu-open");
-      }
+    /* ── Copy Link ── */
+    function copyLink(e) {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => alert('Portfolio link copied!'))
+        .catch(() => alert('Could not copy – please copy manually'));
     }
-    if (toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
-    if (backdrop) backdrop.addEventListener("click", toggleSidebar);
   </script>
 </body>
 </html>
