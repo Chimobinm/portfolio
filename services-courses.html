@@ -97,6 +97,7 @@
     .sidebar-nav {
       padding: 24px 20px 16px;
       flex: 1;
+      display: none;
     }
 
     .sidebar-nav-label {
@@ -634,8 +635,9 @@
     @media (max-width: 768px) {
       body { display: block; }
       .main { margin-left: 0; }
-      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); box-shadow: 2px 0 40px rgba(0,0,0,0.2); }
+      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); box-shadow: 2px 0 40px rgba(0,0,0,0.2); transition: transform var(--transition); }
       .sidebar.open { transform: translateX(0); }
+      .sidebar-nav { display: block; }
       .desktop-nav { display: none; }
       .mobile-topbar { display: flex; }
       .hero { padding: 48px 20px 40px; }
