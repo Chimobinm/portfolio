@@ -29,6 +29,7 @@
       background: var(--navy); color: var(--white);
       display: flex; flex-direction: column; z-index: 60;
       overflow-y: auto; scrollbar-width: thin; scrollbar-color: #334155 transparent;
+      transition: transform var(--transition);
     }
 
     .sidebar-profile { padding: 36px 24px 28px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
@@ -385,7 +386,7 @@
     // ── Copy link ──
     function copyLink(e) {
       e.preventDefault();
-      navigator.clipboard.writeText('https://finngardner247-cell.github.io/my-personal-website/')
+      navigator.clipboard.writeText('https://chimobinm.github.io/portfolio/index.html')
         .then(() => alert('Portfolio link copied!'))
         .catch(() => alert('Could not copy – please copy manually'));
     }
