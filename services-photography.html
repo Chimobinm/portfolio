@@ -23,31 +23,20 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--zinc-800); display: flex; min-height: 100vh; overflow-x: hidden; }
 
-    /* ── SIDEBAR (photography page version: white bg, same content/responsive as original) ── */
+    /* ── SIDEBAR ── */
     .sidebar {
       position: fixed; inset-y: 0; left: 0; width: var(--sidebar-w);
       background: var(--navy); color: var(--white);
       display: flex; flex-direction: column; z-index: 60;
-      transform: translateX(calc(-1 * var(--sidebar-w)));
-      transition: transform var(--transition);
       overflow-y: auto; scrollbar-width: thin; scrollbar-color: #334155 transparent;
     }
-    .sidebar.md-visible { transform: translateX(0); }
 
-    /* Profile — desktop only (hidden on mobile, shown on desktop via .md-visible) */
-    .sidebar-profile { padding: 36px 24px 28px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; display: none; }
-    .sidebar.md-visible .sidebar-profile { display: block; }
+    .sidebar-profile { padding: 36px 24px 28px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
     .sidebar-profile img { width: 120px; height: 120px; border-radius: 16px; object-fit: cover; border: 3px solid rgba(255,255,255,0.15); margin-bottom: 16px; display: block; margin-left: auto; margin-right: auto; }
     .sidebar-profile h1 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; line-height: 1.3; color: #fff; margin-bottom: 6px; }
     .sidebar-profile p { font-size: 0.72rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
-    /* Mobile profile block (only shown when sidebar is open on mobile) */
-    .sidebar-profile-mobile { padding: 24px 20px 20px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
-    .sidebar-profile-mobile img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; border: 3px solid rgba(255,255,255,0.15); display: block; margin: 0 auto 12px; }
-    .sidebar-profile-mobile h2 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; }
-    .sidebar.md-visible .sidebar-profile-mobile { display: none; }
-
-    .sidebar-nav { padding: 24px 20px 16px; flex: 1; }
+    .sidebar-nav { padding: 24px 20px 16px; flex: 1; display: none; }
     .sidebar-nav-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 600; margin-bottom: 12px; }
     .sidebar-nav a, .sidebar-nav .nav-group-btn {
       display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -168,12 +157,9 @@
     @media (max-width: 768px) {
       body { display: block; }
       .main { margin-left: 0; }
-      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); }
+      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); box-shadow: 2px 0 40px rgba(0,0,0,0.2); transition: transform var(--transition); }
       .sidebar.open { transform: translateX(0); }
-      .sidebar.md-visible { transform: translateX(calc(-1 * var(--sidebar-w))); }
-      .sidebar.md-visible.open { transform: translateX(0); }
-      .sidebar.md-visible .sidebar-profile { display: none; }
-      .sidebar-profile-mobile { display: block !important; }
+      .sidebar-nav { display: block; }
       .desktop-nav { display: none; }
       .mobile-topbar { display: flex; }
       .page-hero { padding: 48px 20px 40px; }
@@ -187,19 +173,12 @@
 <body>
 
   <!-- ── SIDEBAR (same content & responsive logic as original photography page) ── -->
-  <aside class="sidebar md-visible" id="sidebar">
+  <aside class="sidebar" id="sidebar">
 
-    <!-- Desktop profile (hidden on mobile) -->
     <div class="sidebar-profile">
       <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike" onerror="this.src='https://ui-avatars.com/api/?name=FM&background=1d4ed8&color=fff&size=120'">
       <h1>Francis Obinna Madubuike</h1>
       <p>Construction Informatics · Digital Twins · Project Management · Researcher</p>
-    </div>
-
-    <!-- Mobile profile (shown when sidebar opens on mobile) -->
-    <div class="sidebar-profile-mobile" style="display:none;">
-      <img src="assets/profile.jpeg" alt="Francis Obinna Madubuike" onerror="this.src='https://ui-avatars.com/api/?name=FM&background=1d4ed8&color=fff&size=120'">
-      <h2>Francis Obinna Madubuike</h2>
     </div>
 
     <div class="sidebar-nav">
