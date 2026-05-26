@@ -72,15 +72,15 @@
     .desktop-nav { background: var(--white); border-bottom: 1px solid var(--zinc-200); position: sticky; top: 0; z-index: 40; padding: 0 40px; }
     .desktop-nav-inner { display: flex; align-items: center; gap: 36px; height: 62px; }
     .desktop-nav a, .desktop-nav .dropdown-btn { font-size: 0.9rem; font-weight: 500; color: var(--zinc-600); text-decoration: none; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 0; transition: color var(--transition); }
-    .desktop-nav a:hover, .desktop-nav .dropdown-btn:hover, .desktop-nav a.active, .desktop-nav .dropdown-btn.active { color: var(--blue); }
+    .desktop-nav a:hover, .desktop-nav .dropdown-btn:hover, .desktop-nav a.active, .desktop-nav .dropdown-btn.active { color: var(--amber); }
     .desktop-nav .dropdown-btn i { font-size: 0.6rem; transition: transform var(--transition); }
     .desktop-nav .dd-wrap { position: relative; }
     .desktop-nav .dd-wrap.open .dropdown-btn i { transform: rotate(180deg); }
     .dd-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: var(--white); border: 1px solid var(--zinc-200); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); min-width: 220px; padding: 8px; z-index: 100; }
     .dd-wrap.open .dd-menu { display: block; }
     .dd-menu a { display: block; padding: 9px 14px; border-radius: 8px; font-size: 0.85rem; color: var(--zinc-600); text-decoration: none; transition: background var(--transition), color var(--transition); }
-    .dd-menu a:hover { background: var(--sky); color: var(--blue); }
-    .dd-menu a.active { color: var(--blue); font-weight: 600; }
+    .dd-menu a:hover { background: var(--amber-50); color: var(--amber); }
+    .dd-menu a.active { color: var(--amber); font-weight: 600; }
 
     /* Mobile top bar */
     .mobile-topbar { display: none; background: var(--white); border-bottom: 1px solid var(--zinc-200); position: sticky; top: 0; z-index: 40; padding: 14px 20px; align-items: center; justify-content: space-between; gap: 12px; }
@@ -117,10 +117,9 @@
       padding: 32px 28px; transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
       position: relative; overflow: hidden;
     }
-    .category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; opacity: 0; transition: opacity var(--transition); }
+    .category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; opacity: 0; transition: opacity var(--transition); background: linear-gradient(90deg, var(--amber), var(--amber-light)); }
     .category-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.09); transform: translateY(-3px); border-color: #fcd34d; }
     .category-card:hover::before { opacity: 1; }
-    .category-card::before { background: linear-gradient(90deg, var(--amber), var(--amber-light)); }
     .category-icon { font-size: 2rem; margin-bottom: 14px; }
     .category-card h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--amber); margin-bottom: 14px; }
     .category-card ul { list-style: none; padding: 0; }
@@ -201,9 +200,9 @@
         </button>
         <div class="nav-group-children">
           <a href="services-courses.html">Course Facilitation</a>
-          <a href="services-notary.html" class="active">Notary Public</a>
+          <a href="services-notary.html">Notary Public</a>
           <a href="services-cleaning.html">Cleaning Services</a>
-          <a href="services-photography.html">Photography</a>
+          <a href="services-photography.html" class="active">Photography</a>
         </div>
       </div>
       <a href="contact.html"><i class="fas fa-envelope fa-fw" style="margin-right:8px;opacity:.5;"></i>Contact Me</a>
@@ -225,7 +224,7 @@
     <!-- Mobile top bar -->
     <div class="mobile-topbar">
       <button class="hamburger-btn" id="hamburger" onclick="toggleSidebar()">
-        <svg id="ham-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path id="ham-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
@@ -353,7 +352,7 @@
   </main>
 
   <script>
-    // ── Sidebar toggle (same logic as photography original, adapted for new class names) ──
+    // ── Sidebar toggle ──
     let sidebarOpen = false;
     function toggleSidebar() {
       sidebarOpen = !sidebarOpen;
