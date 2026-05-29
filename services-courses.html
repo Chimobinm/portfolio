@@ -44,21 +44,22 @@
 
     /* ── SIDEBAR ─────────────────────────────────── */
     .sidebar {
-      position: fixed;
-      inset-y: 0;
-      left: 0;
-      width: var(--sidebar-w);
-      background: var(--navy);
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      z-index: 60;
-      transform: translateX(0);
-      transition: transform var(--transition);
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #334155 transparent;
-    }
+  position: fixed;
+  inset-y: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;             /* ← ADD THIS */
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  z-index: 60;
+  transform: translateX(0);
+  transition: transform var(--transition);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
 
     .sidebar-profile {
       padding: 36px 24px 28px;
