@@ -230,9 +230,20 @@
     @media (max-width: 768px) {
       body { display: block; }
       .main { margin-left: 0; }
-      .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); box-shadow: 2px 0 40px rgba(0,0,0,0.2); transition: transform var(--transition); }
+      /* Sidebar becomes off-canvas drawer */
+      .sidebar {
+        transform: translateX(calc(-1 * var(--sidebar-w)));
+        box-shadow: 2px 0 40px rgba(0,0,0,0.2);
+        transition: transform var(--transition);
+        overflow-y: auto; /* allow scroll inside drawer on small screens */
+      }
       .sidebar.open { transform: translateX(0); }
+
+      /* Show navigation inside the drawer */
       .sidebar-nav { display: block; }
+
+      /* Contact section: stop growing, let nav take space */
+      .sidebar-contact { flex: 0 0 auto; justify-content: flex-start; }
       .desktop-nav { display: none; }
       .mobile-topbar { display: flex; }
       .page-hero { padding: 48px 20px 40px; }
